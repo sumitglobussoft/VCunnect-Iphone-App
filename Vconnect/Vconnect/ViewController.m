@@ -21,6 +21,7 @@
 #import "SettingsViewController.h"
 #import "GameState.h"
 #import "LogutVC.h"
+#import "ProfileViewController.h"
 
 @interface ViewController (){
      RegisterVC *registerVC;
@@ -119,7 +120,7 @@
 //    if ([UIScreen mainScreen].nativeScale == 2.0f){
         if ( self.view.bounds.size.height>568) {
             NSLog(@"in iPhone6");
-            self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_screen_750@2x.png"]];
+            self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_screen_7501@2x.png"]];
              self.emailField.frame=CGRectMake(55,self.view.frame.size.height-460, 268, 40);
             self.passwordField.frame=CGRectMake(55, self.view.frame.size.height-400, 268, 40);
             self.forgetPswdButton.frame=CGRectMake(100, self.view.frame.size.height-365, 300, 40);
@@ -132,7 +133,7 @@
         }
         else if (self.view.bounds.size.height==568){
               NSLog(@"in iPhone5");
-            self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_screen_568.png"]];
+            self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_screen_5681.png"]];
             self.emailField.frame=CGRectMake(30,self.view.frame.size.height-380, 268, 40);
             self.passwordField.frame=CGRectMake(30, self.view.frame.size.height-330, 268, 40);
              self.forgetPswdButton.frame=CGRectMake(10, self.view.frame.size.height-280, 300, 40);
@@ -148,7 +149,7 @@
             
         } else{
               NSLog(@"in iPhone4 ");
-            self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_screen.png"]];
+            self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_screen1.png"]];
            
             self.emailField.frame=CGRectMake(30,self.view.frame.size.height-380, 268, 40);
             self.passwordField.frame=CGRectMake(30, self.view.frame.size.height-330, 268, 40);
@@ -171,7 +172,7 @@
 //    else if([UIScreen mainScreen ].nativeScale>2.1)
 //    {
 //        NSLog(@"in iPhone 6 plus");
-//        self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_screen@3x.png"]];
+//        self.view.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"splash_screen1@3x.png"]];
 //        
 //        self.emailField.frame=CGRectMake(55,self.view.frame.size.height-460, 268, 40);
 //        self.passwordField.frame=CGRectMake(55, self.view.frame.size.height-400, 268, 40);
@@ -633,7 +634,7 @@ http://api.vconnect.globusapps.com/index.php?method=insertUserData&Email=dfsdf@t
 }
 
 -(void)emailLoginClick:(UIButton *)button{
-    
+   /*
     NSError * error=nil;
     NSURLResponse * urlReponse=nil;
     
@@ -676,6 +677,9 @@ http://api.vconnect.globusapps.com/index.php?method=insertUserData&Email=dfsdf@t
     NSLog(@"response is %@",response);
     
     if ([responseShow isEqualToString:@"User Login Successfully"]) {
+       */
+        ProfileViewController *prof = [[ProfileViewController alloc]init];
+        prof.title= @"Profile";
         
         FirstVC *firstVC=[[FirstVC alloc] init];
         firstVC.title=@"Activity";
@@ -703,15 +707,20 @@ http://api.vconnect.globusapps.com/index.php?method=insertUserData&Email=dfsdf@t
         
         
         HomeVC *homeVC=[[HomeVC alloc] init];
-        homeVC.viewControllers = @[firstVC,calendar,group,message,refresh,interest,settings,logvc];
-        
-        [[AppDelegate sharedAppDelegate]showToastMessage:responseShow];
-        
-        [self presentViewController:homeVC animated:YES completion:nil];
+        homeVC.viewControllers = @[prof,firstVC,calendar,group,message,refresh,interest,settings,logvc];
+    
+//        [[AppDelegate sharedAppDelegate]showToastMessage:responseShow];
+   
+    [self addChildViewController:homeVC];
+    
+    [self.navigationController pushViewController:homeVC animated:YES];
+    
+    
+    // [self presentViewController:homeVC animated:YES completion:nil];
 
-    }else{
-          [[AppDelegate sharedAppDelegate]showToastMessage:responseShow];
-    }
+//    }else{
+//          [[AppDelegate sharedAppDelegate]showToastMessage:responseShow];
+//    }
 }
 
 

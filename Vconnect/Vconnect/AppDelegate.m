@@ -15,13 +15,12 @@
 @end
 
 @implementation AppDelegate
-
+@synthesize navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
 
     [self reacheability];
-    
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
@@ -49,11 +48,16 @@
     if ([str isEqualToString:@"NO" ] || str == nil) {
        
         self.viewController=[[AppDelegateFirstVC alloc] init];
-        self.window.rootViewController = self.viewController;
+        self.navigationController = [[UINavigationController alloc]initWithRootViewController:self.viewController];
+        self.navigationController.navigationBarHidden=YES;
+        self.navigationController.delegate = self;
+        
+        self.window.rootViewController=self.navigationController ;
     }
     else{
-       
-        
+        ProfileViewController *prof = [[ProfileViewController alloc]init];
+        prof.title= @"Profile";
+    
         FirstVC *firstVC=[[FirstVC alloc] init];
         firstVC.title=@"Activity";
         
@@ -76,9 +80,13 @@
         settings.title = @"Settings";
         
         HomeVC *homeVC=[[HomeVC alloc] init];
-        homeVC.viewControllers = @[firstVC,calendar,group,message,refresh,interest,settings];
+        homeVC.viewControllers = @[prof,firstVC,calendar,group,message,refresh,interest,settings];
         
-        self.window.rootViewController=homeVC ;
+        
+        self.navigationController = [[UINavigationController alloc]initWithRootViewController:homeVC];
+        self.navigationController.delegate = self;
+
+        self.window.rootViewController=self.navigationController ;
     }
     [self.window makeKeyAndVisible];
   

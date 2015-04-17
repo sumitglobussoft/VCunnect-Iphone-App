@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CalendarViewController : UIViewController{
+@interface CalendarViewController : UIViewController<UIScrollViewDelegate,UITableViewDataSource,UITableViewDelegate>{
     
     UIButton *submitBtn ;
 }
+@property(nonatomic,strong) UIScrollView *scrollView;
+@property(nonatomic,strong) UIView *topView;
+@property(nonatomic,strong) UITableView *eventTableView;
+
 
 @end

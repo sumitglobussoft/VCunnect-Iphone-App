@@ -11,7 +11,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MessageUI/MessageUI.h>
 
-@interface FirstVC : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
+@interface FirstVC : UIViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>{
+     UICollectionView * collectioView;
+    NSMutableArray *data;
 
 }
 @property(nonatomic,strong)UIView * texturedBackgroundView;

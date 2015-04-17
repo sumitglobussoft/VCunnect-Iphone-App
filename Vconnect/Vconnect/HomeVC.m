@@ -7,6 +7,7 @@
 //
 
 #import "HomeVC.h"
+#import "RoundedImageView.h"
 
 
 @interface HomeVC ()
@@ -76,7 +77,7 @@
     self.swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeGesture:)];
     self.swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.mainsubView addGestureRecognizer:self.swipeGesture];
-     self.selectedViewController = [_viewControllers objectAtIndex:0];
+     self.selectedViewController = [_viewControllers objectAtIndex:1];
    [self updateViewContainer];
     
     // Do any additional setup after loading the view.
@@ -152,11 +153,12 @@
           [self.menuTableView reloadData];
 
     }
-    [self.mainsubView addSubview:self.menuTableView];
+   [self.mainsubView addSubview:self.menuTableView];
    
     [UIView animateWithDuration:.5 animations:^{
         self.menuTableView.frame = CGRectMake(0, 50, 180, self.view.frame.size.height);
     }];
+    
 }
 
 +(HomeVC *)sharedObject
@@ -255,9 +257,12 @@
     cell.textLabel.text =  [(UIViewController *)[self.viewControllers objectAtIndex:indexPath.row]title];
     NSString *cellValue = [(UIViewController *)[self.viewControllers objectAtIndex:indexPath.row]title];
         //adding now
-    NSLog(@"cell value %@",cellValue);
+   // NSLog(@"cell value %@",cellValue);
     
-    if ([cellValue isEqualToString:@"Activity"]) {
+    if ([cellValue isEqualToString:@"Profile"]) {
+        cell.imageView.image=[UIImage imageNamed:@"profile.png"];
+    }
+    else if ([cellValue isEqualToString:@"Activity"]) {
         cell.imageView.image=[UIImage imageNamed:@"activity.png"];
     }
     else if ([cellValue isEqualToString:@"Calendar"]) {
@@ -298,18 +303,15 @@
     }
     else{
         [self createMenuTableView];
-        
-        //            self.swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
-        //            
-        //}];
+            self.swipeGesture.direction = UISwipeGestureRecognizerDirectionLeft;
     }
 
     NSLog(@"indexPath.row is %ld",(long)indexPath.row);
     NSLog(@"self.viewControllers.count is %lu",(unsigned long)self.viewControllers.count);
     if (indexPath.row+1 < self.viewControllers.count) {
         
-        NSString *str=    [[NSUserDefaults standardUserDefaults] valueForKey:@"isLogin"];
-        if ([str isEqualToString:@"NO"]) {
+       // NSString *str=    [[NSUserDefaults standardUserDefaults] valueForKey:@"isLogin"];
+       // if ([str isEqualToString:@"NO"]) {
         [UIView animateWithDuration:.5 animations:^{
             
             self.mainsubView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
@@ -324,10 +326,10 @@
             UIViewController *newViewController = [_viewControllers objectAtIndex:indexPath.row];
             //            _selectedSection = indexPath.section;
             _selectedIndex = indexPath.row;
-            
+            [self addChildViewController:newViewController];
             [self getSelectedViewControllers:newViewController];
         }];
-        }
+      //  }
 
     }else{
         //Log out functionality.

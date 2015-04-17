@@ -17,15 +17,17 @@
 #import "InterestViewController.h"
 #import "SettingsViewController.h"
 #import "MBProgressHUD.h"
+#import "ProfileViewController.h"
 
 @class AppDelegateFirstVC;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+@interface AppDelegate : UIResponder <UIApplicationDelegate,UINavigationControllerDelegate>{
      MBProgressHUD *HUD;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) AppDelegateFirstVC *viewController ;
+@property (strong,nonatomic) UINavigationController *navigationController;
 +(AppDelegate *)sharedAppDelegate;
 
 -(void) showHUDLoadingView:(NSString *)strTitle;

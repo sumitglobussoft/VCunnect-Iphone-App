@@ -112,12 +112,17 @@
         [alert show];
     }else{
 
-    loginVC=[[ViewController alloc] init];
-    [self presentViewController:loginVC animated:NO completion:nil];
+        loginVC=[[ViewController alloc] init];
+        [self.navigationController pushViewController:loginVC animated:YES];
+//        [self.navigationController addChildViewController:loginVC];
+        // [self presentViewController:loginVC animated:NO completion:nil];
+//        [self.navigationController pushViewController:loginVC animated:YES];
     }
 }
 
-
+-(void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = YES;
+}
 
 - (void)didReceiveMemoryWarning
 {
